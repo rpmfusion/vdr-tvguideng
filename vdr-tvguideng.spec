@@ -10,7 +10,8 @@ URL:            http://projects.vdr-developer.org/projects/plg-tvguideng
 Source0:        https://projects.vdr-developer.org/git/vdr-plugin-tvguideng.git/snapshot/vdr-plugin-%{pname}-%{version}.tar.bz2
 # https://projects.vdr-developer.org/issues/2427
 Patch0:         %{pname}-gcc6.patch
-Patch1:         tvguideng-vdr_2.4.0_compat.patch
+# https://www.vdr-portal.de/index.php?attachment/41876-tvguideng-235-diff/
+Patch1:         tvguideng_235.diff
 
 BuildRequires:  vdr-devel >= 2.0.0
 BuildRequires:  libskindesignerapi-devel
@@ -48,7 +49,7 @@ make install DESTDIR=%{buildroot}
 %changelog
 * Thu Apr 19 2018 Martin Gansser <martinkg@fedoraproject.org> - 0.3.0-6
 - Rebuilt for vdr-2.4.0
-- Add tvguideng-vdr_2.4.0_compat.patch
+- Add tvguideng_235.diff
 
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
