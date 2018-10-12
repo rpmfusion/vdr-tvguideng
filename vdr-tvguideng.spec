@@ -2,7 +2,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        TvGuideNG is a highly customizable 2D EPG viewer plugin
 Group:          Applications/Multimedia
 License:        GPLv2+
@@ -13,6 +13,7 @@ Patch0:         %{pname}-gcc6.patch
 # https://www.vdr-portal.de/index.php?attachment/41876-tvguideng-235-diff/
 Patch1:         tvguideng_235.diff
 
+BuildRequires:  gcc-c++
 BuildRequires:  vdr-devel >= 2.0.0
 BuildRequires:  libskindesignerapi-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -47,6 +48,9 @@ make install DESTDIR=%{buildroot}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Fri Oct 12 2018 Martin Gansser <martinkg@fedoraproject.org> - 0.3.0-9
+- Add BR gcc-c++
+
 * Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.3.0-8
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
