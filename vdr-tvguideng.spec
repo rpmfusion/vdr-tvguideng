@@ -2,9 +2,8 @@
 
 Name:           vdr-%{pname}
 Version:        0.3.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        TvGuideNG is a highly customizable 2D EPG viewer plugin
-Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://projects.vdr-developer.org/projects/plg-tvguideng
 Source0:        https://projects.vdr-developer.org/git/vdr-plugin-tvguideng.git/snapshot/vdr-plugin-%{pname}-%{version}.tar.bz2
@@ -27,9 +26,7 @@ in the EPG and manage timers, search timers, series timers and switch
 timers in an convenient way.
 
 %prep
-%setup -qn vdr-plugin-%{pname}-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -n vdr-plugin-%{pname}-%{version}
 
 # std::auto_ptr deprecation warning in libstdc++ 5.1
 sed -i -e 's|      std::auto_ptr|       std::unique_ptr|g' services/epgsearch.h
@@ -48,6 +45,9 @@ make install DESTDIR=%{buildroot}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Tue Jun 18 2019 Martin Gansser <martinkg@fedoraproject.org> - 0.3.0-11
+- Rebuilt for new VDR API version
+
 * Tue Mar 05 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
