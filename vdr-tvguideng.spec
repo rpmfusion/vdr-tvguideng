@@ -1,8 +1,8 @@
 %global pname   tvguideng
 
 Name:           vdr-%{pname}
-Version:        0.3.2
-Release:        6%{?dist}
+Version:        0.3.3
+Release:        1%{?dist}
 Summary:        TvGuideNG is a highly customizable 2D EPG viewer plugin
 License:        GPLv2+
 URL:            http://projects.vdr-developer.org/projects/plg-tvguideng
@@ -25,7 +25,7 @@ timers in an convenient way.
 %autosetup -n vdr-plugin-%{pname}-%{version}
 
 # std::auto_ptr deprecation warning in libstdc++ 5.1
-sed -i -e 's|      std::auto_ptr|       std::unique_ptr|g' services/epgsearch.h
+sed -i -e 's|std::auto_ptr|std::unique_ptr|g' services/epgsearch.h
 
 %build
 make CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" %{?_smp_mflags} all
@@ -41,6 +41,9 @@ make install DESTDIR=%{buildroot}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Sat May 22 2021 Martin Gansser <martinkg@fedoraproject.org> - 0.3.3-1
+- Update to 0.3.3
+
 * Thu Feb 04 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
@@ -57,7 +60,7 @@ make install DESTDIR=%{buildroot}
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
 * Tue Jul 28 2020 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-1
-- Update to 9.3.2
+- Update to 0.3.2
 
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
@@ -66,7 +69,7 @@ make install DESTDIR=%{buildroot}
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
 * Fri Jul 05 2019 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-1
-- Update to 9.3.1
+- Update to 0.3.1
 
 * Mon Jul 01 2019 Martin Gansser <martinkg@fedoraproject.org> - 0.3.0-12
 - Rebuilt for new VDR API version 2.4.1
