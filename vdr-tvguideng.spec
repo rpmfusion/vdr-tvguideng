@@ -2,7 +2,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TvGuideNG is a highly customizable 2D EPG viewer plugin
 License:        GPLv2+
 URL:            http://projects.vdr-developer.org/projects/plg-tvguideng
@@ -41,6 +41,9 @@ sed -i -e 's|std::auto_ptr|std::unique_ptr|g' services/epgsearch.h
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Sat Feb 05 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.3.3-4
+- Rebuilt for new VDR API version
+
 * Thu Dec 30 2021 Martin Gansser <martinkg@fedoraproject.org> - 0.3.3-3
 - Rebuilt for new VDR API version
 
