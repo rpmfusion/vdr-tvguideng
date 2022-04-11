@@ -1,4 +1,7 @@
 %global pname   tvguideng
+# version we want build against
+%global vdr_version 2.6.1
+
 
 Name:           vdr-%{pname}
 Version:        0.3.3
@@ -9,7 +12,7 @@ URL:            http://projects.vdr-developer.org/projects/plg-tvguideng
 Source0:        https://projects.vdr-developer.org/git/vdr-plugin-tvguideng.git/snapshot/vdr-plugin-%{pname}-%{version}.tar.bz2
 
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= 2.0.0
+BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  libskindesignerapi-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 Requires:       vdr-skindesigner >= 0.4.0
