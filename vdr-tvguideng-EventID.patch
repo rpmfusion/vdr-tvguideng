@@ -1,0 +1,11 @@
+--- tvguideng-0.3.4/recmanager.c.orig	2024-10-01 17:29:58.053527484 +0200
++++ tvguideng-0.3.4/recmanager.c	2024-10-01 17:31:25.082612572 +0200
+@@ -457,7 +457,7 @@
+                     if (channel) {
+                         const cSchedule *Schedule = NULL;
+                         Schedule = schedules->GetSchedule(channel);
+-                        event = Schedule->GetEvent(eventID);
++                        event = Schedule->GetEventById(eventID);
+                         if (event) {
+                             searchResults[index] = event;
+                         } else
