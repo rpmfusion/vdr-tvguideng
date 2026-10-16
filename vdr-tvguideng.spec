@@ -1,28 +1,20 @@
 %global pname   tvguideng
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-%{pname}
-Version:        0.3.7
-Release:        11%{?dist}
+Version:        1.3.6
+Release:        1%{?dist}
 Summary:        TvGuideNG is a highly customizable 2D EPG viewer plugin
 License:        GPL-2.0-or-later
-URL:            https://gitlab.com/kamel5/tvguideng
-Source0:        https://gitlab.com/kamel5/tvguideng/-/archive/%{version}/%{pname}-%{version}.tar.bz2
+URL:            https://gitlab.com/vdr-projects/vdr-plugin-tvguideng
+Source0:        https://gitlab.com/vdr-projects/vdr-plugin-tvguideng/-/archive/v%{version}/vdr-plugin-tvguideng-v%{version}.tar.bz2
+Patch0:         vdr-tvguideng-1.3.6-geteventbyid.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 BuildRequires:  libskindesignerapi-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 Requires:       vdr-skindesigner >= 0.4.0
@@ -35,7 +27,7 @@ in the EPG and manage timers, search timers, series timers and switch
 timers in an convenient way.
 
 %prep
-%autosetup -n %{pname}-%{version}
+%autosetup -n vdr-plugin-%{pname}-v%{version}
 
 # std::auto_ptr deprecation warning in libstdc++ 5.1
 sed -i -e 's|std::auto_ptr|std::unique_ptr|g' services/epgsearch.h
@@ -44,16 +36,27 @@ sed -i -e 's|std::auto_ptr|std::unique_ptr|g' services/epgsearch.h
 %make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC"
 
 %install
-%make_install
+# make install would install the themes under /etc, let's not use that
+make install-lib install-i18n install-icons DESTDIR=%{buildroot}
+# install the themes to the custom location used in Fedora
+install -dm 755 %{buildroot}%{vdr_vardir}/themes
+install -pm 644 themes/*.theme %{buildroot}%{vdr_vardir}/themes/
 
-%find_lang %{name}
+%find_lang vdr-tvguide
 
-%files -f %{name}.lang
+%files -f vdr-tvguide.lang
 %doc HISTORY* README*
 %license COPYING
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_vardir}/themes/tvguide-*.theme
+%{vdr_resdir}/plugins/tvguide/
 
 %changelog
+* Fri Oct 16 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.6-1
+- Rebuilt for new VDR 2.8.3 API version 14
+- Update to 1.3.6
+- Add vdr-tvguideng-1.3.6-geteventbyid.patch
+
 * Sun Aug 02 2026 RPM Fusion Release Engineering <leigh123linux@rpmfusion.org> - 0.3.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,0 +1,11 @@
+--- vdr-plugin-tvguideng-v1.3.6/recmanager.c.orig	2026-10-16 16:50:11.225387009 +0200
++++ vdr-plugin-tvguideng-v1.3.6/recmanager.c	2026-10-16 16:51:01.494793295 +0200
+@@ -470,7 +470,7 @@
+                     if (channel) {
+                         const cSchedule *Schedule = NULL;
+                         Schedule = schedules->GetSchedule(channel);
+-                        event = Schedule->GetEvent(eventID);
++			event = Schedule->GetEventById(eventID);
+                         if (event) {
+                             searchResults[index] = event;
+                         } else
