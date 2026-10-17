@@ -14,6 +14,7 @@ Patch0:         vdr-tvguideng-1.3.6-geteventbyid.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
+BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  vdr-devel
 BuildRequires:  libskindesignerapi-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -33,7 +34,7 @@ timers in an convenient way.
 sed -i -e 's|std::auto_ptr|std::unique_ptr|g' services/epgsearch.h
 
 %build
-%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC"
+%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" IMAGELIB=graphicsmagick
 
 %install
 # make install would install the themes under /etc, let's not use that
@@ -56,6 +57,7 @@ install -pm 644 themes/*.theme %{buildroot}%{vdr_vardir}/themes/
 - Rebuilt for new VDR 2.8.3 API version 14
 - Update to 1.3.6
 - Add vdr-tvguideng-1.3.6-geteventbyid.patch
+- Add BR GraphicsMagick-devel
 
 * Sun Aug 02 2026 RPM Fusion Release Engineering <leigh123linux@rpmfusion.org> - 0.3.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
